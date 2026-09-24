@@ -112,6 +112,8 @@ def _get_client():
         )
     return _client
 
+WEEKDAYS = ["понедельник", "вторник", "среда", "четверг",
+            "пятница", "суббота", "воскресенье"]
 
 def explain(route: str, ts: datetime, result: dict) -> str:
     fallback = "; ".join(result["factors"]) + "."
@@ -126,7 +128,7 @@ def explain(route: str, ts: datetime, result: dict) -> str:
         "день недели и время из данных. Упомяни, что прогноз приблизительный, "
         "с указанной погрешностью.\n\n"
         f"Маршрут: {route}\n"
-        f"Время: {ts:%d.%m.%Y %H:%M}, день недели: {ts.strftime('%A')}\n"
+        f"Время: {ts:%d.%m.%Y %H:%M}, день недели: {WEEKDAYS[ts.weekday()]}\n"
         f"Праздник: {'да' if result['is_holiday'] else 'нет'}\n"
         f"Загрузка: {result['load_percent']}% (±{result['uncertainty_percent']} п.п.)\n"
         f"Факторы: {', '.join(result['factors'])}"
